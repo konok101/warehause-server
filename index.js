@@ -31,7 +31,14 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const fruit = await fruitsCollection.findOne(query);
       res.send(fruit);
-    })
+    });
+app.post('/fruitsInfo', async(req, res)=>{
+  const newFruit = req.body;
+  const addedFruit = await fruitsCollection.insertOne(newFruit);
+  res.send(addedFruit);
+})
+
+
   }
   finally {
 
@@ -44,7 +51,7 @@ run().catch(console.log('rejected'));
 app.get('/', (req, res) => {
   res.send('Server is running');
 });
-
+ 
 app.listen(port, () => {
   console.log('server is running with port', port);
 });
