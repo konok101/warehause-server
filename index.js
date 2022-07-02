@@ -32,11 +32,17 @@ async function run() {
       const fruit = await fruitsCollection.findOne(query);
       res.send(fruit);
     });
-app.post('/fruitsInfo', async(req, res)=>{
-  const newFruit = req.body;
-  const addedFruit = await fruitsCollection.insertOne(newFruit);
-  res.send(addedFruit);
-})
+    app.post('/fruitsInfo', async (req, res) => {
+      const newFruit = req.body;
+      const addedFruit = await fruitsCollection.insertOne(newFruit);
+      res.send(addedFruit);
+    });
+    app.delete('/fruitsInfo/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const deletFruit = await fruitsCollection.deleteOne(query);
+      res.send(deletFruit)
+    })
 
 
   }
@@ -51,7 +57,7 @@ run().catch(console.log('rejected'));
 app.get('/', (req, res) => {
   res.send('Server is running');
 });
- 
+
 app.listen(port, () => {
   console.log('server is running with port', port);
 });
