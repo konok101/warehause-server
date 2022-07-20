@@ -27,7 +27,6 @@ async function run() {
 
     app.get('/fruitsInfo/:id', async (req, res) => {
       const id = req.params.id;
-      console.log(id);
       const query = { _id: ObjectId(id) };
       const fruit = await fruitsCollection.findOne(query);
       res.send(fruit);
@@ -41,7 +40,6 @@ async function run() {
     // find all items
     app.get('/myFruitsInfo', async (req, res) => {
       const email = req.query.email;
-      console.log("email", email);
       const query = { email };
       const cursor = fruitsCollection.find(query);
       const result = await cursor.toArray();
